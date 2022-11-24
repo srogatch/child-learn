@@ -36,6 +36,9 @@ const std::wstring& Translator::Get(const MessageId mid) {
 }
 
 Translator Translator::Prompt() {
+#ifdef _MSC_VER
+  _setmode(_fileno(stdout), _O_U16TEXT);
+#endif // _MSC_VER
   std::locale::global (std::locale ("en_US.UTF-8"));
   Language lang = Language::None;
   while(lang == Language::None) {
