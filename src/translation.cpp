@@ -2,17 +2,18 @@
 #include <exception>
 #include <stdexcept>
 #include <iostream>
-#include <locale>
+#include <fmt/core.h>
 
 static Message gMessages[] = {
-  {MessageId::None, L"None", L"Ничего"},
-  {MessageId::Correct, L"Correct", L"Правильно"},
-  {MessageId::Wrong, L"Wrong", L"Неправильно"},
+  {MessageId::None, "None", "Ничего"},
+  {MessageId::Correct, "Correct", "Правильно"},
+  {MessageId::Wrong, "Wrong", "Неправильно"},
+  {MessageId::Stats, "Total {}, correct {}: {}%\n", "Всего {}, правильных {}: {}%\n"},
 };
 
 Translator::Translator(const Language lang) {
   for(const Message& msg : gMessages) {
-    std::wstring cur;
+    std::string cur;
     switch(lang) {
     case Language::English:
       cur = msg._eng;
@@ -27,7 +28,7 @@ Translator::Translator(const Language lang) {
   }
 }
 
-const std::wstring& Translator::Get(const MessageId mid) {
+const std::string& Translator::Get(const MessageId mid) {
   auto it = _msgs.find(mid);
   if(it == _msgs.end()) {
     throw std::runtime_error("Unhandled message");
@@ -36,14 +37,11 @@ const std::wstring& Translator::Get(const MessageId mid) {
 }
 
 Translator Translator::Prompt() {
-#ifdef _MSC_VER
-  _setmode(_fileno(stdout), _O_U16TEXT);
-#endif // _MSC_VER
   std::locale::global (std::locale ("en_US.UTF-8"));
   Language lang = Language::None;
   while(lang == Language::None) {
-    std::wcout << uint32_t(Language::English) << L": English" << std::endl;
-    std::wcout << uint32_t(Language::Russian) << L": Русский" << std::endl;
+    fmt::print("{} English\n", uint32_t(Language::English));
+    fmt::print("{} Русский\n", uint32_t(Language::Russian));
     std::wstring choice;
     if(!std::getline(std::wcin, choice)) {
       throw std::runtime_error("End of input");
