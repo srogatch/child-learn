@@ -8,7 +8,7 @@ static Message gMessages[] = {
   {MessageId::None, "None", "Ничего"},
   {MessageId::Correct, "Correct", "Правильно"},
   {MessageId::Wrong, "Wrong", "Неправильно"},
-  {MessageId::Stats, "Total {}, correct {}: {}%\n", "Всего {}, правильных {}: {}%\n"},
+  {MessageId::Stats, "Total {}, correct {}: {:.3f}%\n", "Всего {}, правильных {}: {:.3f}%\n"},
 };
 
 Translator::Translator(const Language lang) {
