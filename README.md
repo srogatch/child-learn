@@ -1,6 +1,14 @@
 # child-learn
 Learning programs for children
 
+# Clone
+
+```
+git clone git@github.com:srogatch/child-learn.git
+cd child-learn
+git submodule update --init --recursive
+```
+
 # Build
 
 ```
