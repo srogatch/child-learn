@@ -29,5 +29,5 @@ class Translator {
 public:
   explicit Translator(const Language lang);
   static Translator Prompt();
-  const std::string& Get(const MessageId mid);
+  const std::string& Get(const MessageId mid) const;
 };

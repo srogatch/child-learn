@@ -28,7 +28,7 @@ Translator::Translator(const Language lang) {
   }
 }
 
-const std::string& Translator::Get(const MessageId mid) {
+const std::string& Translator::Get(const MessageId mid) const {
   auto it = _msgs.find(mid);
   if(it == _msgs.end()) {
     throw std::runtime_error("Unhandled message");

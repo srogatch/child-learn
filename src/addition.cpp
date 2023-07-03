@@ -15,7 +15,7 @@ T ProperlySeededRandomEngine () {
 
 int main() {
   std::mt19937_64 rng = ProperlySeededRandomEngine();
-  std::uniform_int_distribution<int> dist(0, 10);
+  std::uniform_int_distribution<int> dist(0, 20);
   Translator tr = Translator::Prompt();
   int iSample = 0, nCorrect = 0;
   for(;;iSample++) {
@@ -29,8 +29,8 @@ int main() {
       }
       if(sum==L"stat") {
         const int total = (iAttempt == 0) ? iSample : iSample + 1;
-        fmt::print(tr.Get(MessageId::Stats), total, nCorrect,
-          nCorrect*100.0 / total);
+        std::string format = tr.Get(MessageId::Stats);
+        fmt::print(fmt::runtime(format), total, nCorrect, nCorrect*100.0 / total);
         continue;
       }
       int ans;
